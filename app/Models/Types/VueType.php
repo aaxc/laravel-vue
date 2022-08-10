@@ -2,7 +2,7 @@
 
 namespace App\Models\Types;
 
-use App\Http\Interfaces\VueTypeInterface;
+use App\Interfaces\VueTypeInterface;
 
 /**
  * Vue type for user settings
@@ -37,7 +37,7 @@ abstract class VueType implements VueTypeInterface, \JsonSerializable
      *
      * @param bool $toEdit
      *
-     * @return \App\Http\Interfaces\VueTypeInterface
+     * @return \App\Interfaces\VueTypeInterface
      */
     public function setToEdit(bool $toEdit): VueTypeInterface
     {

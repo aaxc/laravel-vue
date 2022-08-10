@@ -5,7 +5,7 @@ const app = new Vue({
         self: this,
         rendered: false,
         users: [],
-        empty_user: {},
+        allowAdd: true,
     },
     methods: {
         showEdit: function (element) {
@@ -17,30 +17,42 @@ const app = new Vue({
             element.toEdit = false;
         },
         addUser: function () {
-            this.users.unshift(this.saveUser(this.empty_user));
+            let that = this;
+            this.allowAdd = false;
+            axios.get(myApi + 'users/blank').then(function (response) {
+                that.users.unshift(response.data);
+            }).catch(function(){
+                console.log('Something went wrong!');
+            }).finally(function(){
+                that.allowAdd = true;
+            });
         },
         saveUser: function (newUser) {
-            // @TODO Implement DB save
-            let dbUser = newUser;
-            return dbUser;
+            axios.post(myApi + 'users/add', newUser).then(function (response) {
+                newUser.id = response.data.id;
+                newUser.name = response.data.name;
+                newUser.email = response.data.email;
+                newUser.created_at = response.data.created_at;
+            }).catch(function(){
+                console.log('Something went wrong!');
+            });
         },
     },
     mounted: function () {
-        var that = this;
+        let that = this;
 
         // Fetch data
-        axios.get(myApi + 'users').then(function (userResponse) {
-            axios.get(myApi + 'users/blank').then(function (blankResponse) {
-                that.users = userResponse.data
-                that.empty_user = blankResponse.data
+        axios.get(myApi + 'users').then(function (response) {
+            that.users = response.data
 
-                // Show hidden elements
-                document.getElementById("app").classList.remove('hide');
-                document.getElementById("loader").classList.add('hide');
+            // Show hidden elements
+            document.getElementById("app").classList.remove('hide');
+            document.getElementById("loader").classList.add('hide');
 
-                // Set rendered to true
-                that.rendered = true;
-            });
+            // Set rendered to true
+            that.rendered = true;
+        }).catch(function(){
+            console.log('Something went wrong!');
         });
     },
 });

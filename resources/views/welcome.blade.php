@@ -32,7 +32,7 @@
         <h4 style="width: 100%;">
             {{ title }}
             <span style="float: right;">
-                <button class="btn btn-success" @click="addUser">&nbsp;+&nbsp;</button>
+                <button class="btn btn-success" v-bind:class="{ 'disabled': !allowAdd }" @click="addUser">&nbsp;+&nbsp;</button>
             </span>
         </h4>
 
@@ -44,6 +44,7 @@
             <th>E-mail</th>
             <th>Create Date</th>
             <th>Updated Date</th>
+            <th style="max-width: 200px;"></th>
             </thead>
             <tbody v-if="users">
             <tr v-for="(user, index) in users">
@@ -63,6 +64,13 @@
                 </td>
                 <td>
                     {{ user.updated_at.value }}
+                </td>
+                <td>
+                    <span v-if="!user.id.value">Password<br/></span>
+                    <div class="btn-group" role="group" v-if="!user.id.value">
+                        <input type="text" class="form-control" v-model:value="user.password.value" style="max-width: 200px;" />
+                        <button class="btn btn-primary" @click="saveUser(user)">Save</button>
+                    </div>
                 </td>
             </tr>
             </tbody>

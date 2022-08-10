@@ -2,7 +2,7 @@
 
 namespace App\Models\Types;
 
-use App\Http\Enums\VueTypeError;
+use App\Enums\VueTypeError;
 
 /**
  * ID type
@@ -14,7 +14,7 @@ class VueId extends VueType
      *
      * @param $value
      *
-     * @return int
+     * @return int|null
      */
     public function validate($value): ?int
     {

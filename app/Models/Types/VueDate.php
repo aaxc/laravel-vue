@@ -2,11 +2,11 @@
 
 namespace App\Models\Types;
 
-use App\Http\Enums\VueTypeError;
+use App\Enums\VueTypeError;
 use Illuminate\Support\Carbon;
 
 /**
- * NAME type
+ * DATE type
  */
 class VueDate extends VueType
 {
@@ -15,9 +15,9 @@ class VueDate extends VueType
      *
      * @param $value
      *
-     * @return string
+     * @return \Illuminate\Support\Carbon|null
      */
-    public function validate($value): Carbon
+    public function validate($value): ?Carbon
     {
         if ($value::class !== Carbon::class) {
             if (date('Y-m-d', strtotime($value)) !== $value) {

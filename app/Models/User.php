@@ -6,6 +6,7 @@ use App\Models\Types\VueDate;
 use App\Models\Types\VueEmail;
 use App\Models\Types\VueFullName;
 use App\Models\Types\VueId;
+use App\Models\Types\VuePassword;
 use App\Models\Types\VueType;
 use Illuminate\Support\Carbon;
 
@@ -16,6 +17,7 @@ class User implements \JsonSerializable
     protected VueEmail $email;
     protected VueDate $created_at;
     protected VueDate $updated_at;
+    protected VuePassword $password;
 
     public function jsonSerialize()
     {
@@ -25,6 +27,7 @@ class User implements \JsonSerializable
             'email' => $this->email,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'password' => $this->password,
         ];
     }
 
@@ -40,6 +43,7 @@ class User implements \JsonSerializable
         $this->email = (new VueEmail(null))->setToEdit(true);
         $this->created_at = (new VueDate(new Carbon()))->setToEdit(true);
         $this->updated_at = (new VueDate(new Carbon()))->setToEdit(false);
+        $this->password = (new VuePassword(null))->setToEdit(true);
 
         return $this;
     }
@@ -122,5 +126,21 @@ class User implements \JsonSerializable
     public function setUpdatedAt(VueDate $updated_at): void
     {
         $this->updated_at = $updated_at;
+    }
+
+    /**
+     * @return \App\Models\Types\VuePassword
+     */
+    public function getPassword(): VuePassword
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param \App\Models\Types\VuePassword $password
+     */
+    public function setPassword(VuePassword $password): void
+    {
+        $this->password = $password;
     }
 }

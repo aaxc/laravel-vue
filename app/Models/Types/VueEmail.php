@@ -2,7 +2,7 @@
 
 namespace App\Models\Types;
 
-use App\Http\Enums\VueTypeError;
+use App\Enums\VueTypeError;
 
 /**
  * EMAIL type
@@ -14,7 +14,7 @@ class VueEmail extends VueType
      *
      * @param $value
      *
-     * @return string
+     * @return string|null
      */
     public function validate($value): ?string
     {
