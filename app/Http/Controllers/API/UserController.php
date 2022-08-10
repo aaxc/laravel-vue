@@ -11,6 +11,9 @@ use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * User controller
+ */
 class UserController extends Controller
 {
     /**
@@ -59,5 +62,12 @@ class UserController extends Controller
         $newUser = new User();
 
         return $newUser->blank();
+    }
+
+    public function destroy(int $id)
+    {
+        UserDAO::destroy($id);
+
+        return ['success' => true];
     }
 }

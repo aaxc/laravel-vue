@@ -30,6 +30,19 @@
             </span>
         </h4>
 
+        <!-- spacer -->
+        <br/>
+
+        <!-- Error Alert -->
+        <div v-if="errors" v-for="(error, index) in errors">
+            <div v-for="(err, i) in error">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    {{ error[i] }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            </div>
+        </div>
+
         <table class="table table-striped">
             <thead>
             <th style="width: 20px;"></th>
@@ -46,15 +59,15 @@
                 <td>{{ user.id.value }}</td>
                 <td>
                     <span class="editable" @click="showEdit(user.name)" v-if="!user.name.toEdit">{{ user.name.value }}</span>
-                    <input v-if="user.name.toEdit" type="text" class="form-control" v-model:value="user.name.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.name, user.updated_at)" />
+                    <input v-if="user.name.toEdit" type="text" class="form-control" v-model:value="user.name.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.name, user)" />
                 </td>
                 <td>
                     <span class="editable" @click="showEdit(user.email)" v-if="!user.email.toEdit">{{ user.email.value }}</span>
-                    <input v-if="user.email.toEdit" type="text" class="form-control" v-model:value="user.email.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.email, user.updated_at)" />
+                    <input v-if="user.email.toEdit" type="text" class="form-control" v-model:value="user.email.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.email, user)" />
                 </td>
                 <td>
                     <span class="editable" @click="showEdit(user.created_at)" v-if="!user.created_at.toEdit">{{ user.created_at.value }}</span>
-                    <input v-if="user.created_at.toEdit" type="text" class="form-control" v-model:value="user.created_at.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.created_at, user.updated_at)" />
+                    <input v-if="user.created_at.toEdit" type="text" class="form-control" v-model:value="user.created_at.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.created_at, user)" />
                 </td>
                 <td>
                     {{ user.updated_at.value }}

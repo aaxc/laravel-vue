@@ -18,4 +18,5 @@ Route::prefix('users')->controller(\App\Http\Controllers\API\UserController::cla
     Route::get('/', 'index');
     Route::get('/blank', 'blank');
     Route::post('/add', 'add');
+    Route::delete('/delete/{id}', 'destroy');
 });

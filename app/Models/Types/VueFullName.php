@@ -19,7 +19,7 @@ class VueFullName extends VueType
     public function validate($value): ?string
     {
         if ($value !== null) {
-            if (3 > strlen($value) || strlen($value) > 255) {
+            if (2 > strlen($value) || strlen($value) > 255) {
                 throw new \TypeError(VueTypeError::INVALID_NAME->text());
             }
         }
