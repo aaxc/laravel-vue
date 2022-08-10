@@ -4,9 +4,12 @@ namespace App\Models\Types;
 
 use App\Enums\VueTypeError;
 use Illuminate\Support\Carbon;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * DATE type
+ *
+ * @author Dainis Abols <dainis@dainisabols.lv>
  */
 class VueDate extends VueType
 {
@@ -35,7 +38,8 @@ class VueDate extends VueType
      *
      * @return array
      */
-    public function jsonSerialize()
+    #[ArrayShape(['toEdit' => "bool", 'value' => "mixed"])]
+    public function jsonSerialize(): array
     {
         return [
             'toEdit' => $this->toEdit,

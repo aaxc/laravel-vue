@@ -34,7 +34,7 @@
         <br/>
 
         <!-- Error Alert -->
-        <div v-if="errors" v-for="(error, index) in errors">
+        <div v-for="(error, index) in errors">
             <div v-for="(err, i) in error">
                 <div class="alert alert-danger alert-dismissible fade show">
                     {{ error[i] }}

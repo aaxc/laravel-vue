@@ -4,6 +4,8 @@ namespace App\Models\Types;
 
 /**
  * PASSWORD type
+ *
+ * @author Dainis Abols <dainis@dainisabols.lv>
  */
 class VuePassword extends VueType
 {
@@ -17,18 +19,5 @@ class VuePassword extends VueType
     public function validate($value): ?string
     {
         return $value;
-    }
-
-    /**
-     * Change date format for JSON output
-     *
-     * @return array
-     */
-    public function jsonSerialize()
-    {
-        return [
-            'toEdit' => $this->toEdit,
-            'value'  => $this->value,
-        ];
     }
 }

@@ -9,7 +9,13 @@ use App\Models\Types\VueId;
 use App\Models\Types\VuePassword;
 use App\Models\Types\VueType;
 use Illuminate\Support\Carbon;
+use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ * User model
+ *
+ * @author Dainis Abols <dainis@dainisabols.lv>
+ */
 class User implements \JsonSerializable
 {
     protected VueId $id;
@@ -19,33 +25,22 @@ class User implements \JsonSerializable
     protected VueDate $updated_at;
     protected VuePassword $password;
 
-    public function jsonSerialize()
-    {
-        return [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'email'      => $this->email,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'password'   => $this->password,
-        ];
-    }
-
     /**
      * Creates blank user for editing
      *
      * @return $this
      */
-    public function blank(): User
+    public static function blank(): User
     {
-        $this->id         = (new VueId(null))->setToEdit(false);
-        $this->name       = (new VueFullName(null))->setToEdit(true);
-        $this->email      = (new VueEmail(null))->setToEdit(true);
-        $this->created_at = (new VueDate(new Carbon()))->setToEdit(true);
-        $this->updated_at = (new VueDate(new Carbon()))->setToEdit(false);
-        $this->password   = (new VuePassword(null))->setToEdit(true);
+        $newUser = new User();
+        $newUser->id         = (new VueId(null))->setToEdit(false);
+        $newUser->name       = (new VueFullName(null))->setToEdit(true);
+        $newUser->email      = (new VueEmail(null))->setToEdit(true);
+        $newUser->created_at = (new VueDate(new Carbon()))->setToEdit(true);
+        $newUser->updated_at = (new VueDate(new Carbon()))->setToEdit(false);
+        $newUser->password   = (new VuePassword(null))->setToEdit(true);
 
-        return $this;
+        return $newUser;
     }
 
     /**
@@ -142,5 +137,18 @@ class User implements \JsonSerializable
     public function setPassword(VuePassword $password): void
     {
         $this->password = $password;
+    }
+
+    #[ArrayShape(['id' => "\App\Models\Types\VueId", 'name' => "\App\Models\Types\VueFullName", 'email' => "\App\Models\Types\VueEmail", 'created_at' => "\App\Models\Types\VueDate", 'updated_at' => "\App\Models\Types\VueDate", 'password' => "\App\Models\Types\VuePassword"])]
+    public function jsonSerialize(): array
+    {
+        return [
+            'id'         => $this->id,
+            'name'       => $this->name,
+            'email'      => $this->email,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'password'   => $this->password,
+        ];
     }
 }

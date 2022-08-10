@@ -4,14 +4,12 @@ namespace App\Http\Requests;
 
 use App\Rules\EmailRule;
 use App\Rules\FullNameRule;
+use App\Rules\UniqueEmailRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Unique;
 
-/**
- * Store user request rules
- *
- * @author Dainis Abols <dainis@dainisabols.lv>
- */
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,11 +29,11 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name.value'       => ['required', new FullNameRule()],
-            'email.value'      => ['required', new EmailRule(), 'unique:users,email'],
-            'created_at.value' => ['required', 'date'],
-            'updated_at.value' => ['required', 'date'],
-            'password.value'   => ['required'],
+            'id.value'         => ['required', 'integer'],
+            'name.value'       => [new FullNameRule()],
+            'email.value'      => [new EmailRule()],
+            'created_at.value' => ['date'],
+            'updated_at.value' => ['date', 'required'],
         ];
     }
 }

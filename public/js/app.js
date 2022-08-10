@@ -2,29 +2,47 @@ const app = new Vue({
     el: '#app',
     data: {
         title: myTitle,
-        self: this,
         rendered: false,
-        users: [],
         allowAdd: true,
-        errors: null,
+        users: [],
+        errors: [],
     },
     methods: {
+        /**
+         * Show element edit option
+         *
+         * @param element
+         */
         showEdit: function (element) {
             element.toEdit = true;
         },
+
+        /**
+         * Hide element edit option and save, if element is created
+         *
+         * @param element
+         * @param obj
+         */
         hideEdit: function (element, obj) {
+            // Modify update date
             let now = new Date().toJSON();
             obj.updated_at.value = now.slice(0, 10) + ' ' + now.slice(11, 19);
             element.toEdit = false;
 
             // Update, if ID present
             if (obj.id.value) {
-                // @TODO send to UPDATE endpoint
+                this.updateUser(obj);
             }
         },
+
+        /**
+         * Add user to table, for editing
+         */
         addUser: function () {
             let that = this;
             this.allowAdd = false;
+
+            // Fetch new user structure
             axios.get(myApi + 'users/blank')
                 .then(function (response) {
                     that.users.unshift(response.data);
@@ -37,9 +55,16 @@ const app = new Vue({
                     that.allowAdd = true;
                 });
         },
+
+        /**
+         * Send user candidate db and receive back new user or error
+         *
+         * @param newUser
+         */
         saveUser: function (newUser) {
             let that = this;
 
+            // Post data to server
             axios.post(myApi + 'users/add', newUser)
                 .then(function (response) {
                     newUser.id = response.data.id;
@@ -53,6 +78,29 @@ const app = new Vue({
                     that.showErrors(error);
                 });
         },
+
+        /**
+         * Update user
+         *
+         * @param user
+         */
+        updateUser: function(user) {
+            let that = this;
+
+            axios.put(myApi + 'users/update/' + user.id.value, user)
+                .then(function (response) {
+                    that.hideErrors();
+                })
+                .catch(function (error) {
+                    that.showErrors(error);
+                });
+        },
+
+        /**
+         * Show errors, if any
+         *
+         * @param errors
+         */
         showErrors: function (errors) {
             let that = this;
 
@@ -65,6 +113,10 @@ const app = new Vue({
                 that.hideErrors;
             }
         },
+
+        /**
+         * Hide all errors
+         */
         hideErrors: function () {
             this.errors = null;
         },
@@ -73,18 +125,20 @@ const app = new Vue({
         let that = this;
 
         // Fetch data
-        axios.get(myApi + 'users').then(function (response) {
-            that.users = response.data
+        axios.get(myApi + 'users')
+            .then(function (response) {
+                that.users = response.data
 
-            // Show hidden elements
-            document.getElementById("app").classList.remove('hide');
-            document.getElementById("loader").classList.add('hide');
+                // Show hidden elements
+                document.getElementById("app").classList.remove('hide');
+                document.getElementById("loader").classList.add('hide');
 
-            // Set rendered to true
-            that.rendered = true;
-            that.hideErrors();
-        }).catch(function (error) {
-            that.showErrors(error);
-        });
+                // Set rendered to true
+                that.rendered = true;
+                that.hideErrors();
+            })
+            .catch(function (error) {
+                that.showErrors(error);
+            });
     },
 });

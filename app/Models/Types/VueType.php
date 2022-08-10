@@ -3,9 +3,12 @@
 namespace App\Models\Types;
 
 use App\Interfaces\VueTypeInterface;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Vue type for user settings
+ *
+ * @author Dainis Abols <dainis@dainisabols.lv>
  */
 abstract class VueType implements VueTypeInterface, \JsonSerializable
 {
@@ -71,7 +74,8 @@ abstract class VueType implements VueTypeInterface, \JsonSerializable
      *
      * @return array
      */
-    public function jsonSerialize()
+    #[ArrayShape(['toEdit' => "bool", 'value' => ""])]
+    public function jsonSerialize(): array
     {
         return [
             'toEdit' => $this->toEdit,

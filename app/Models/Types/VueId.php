@@ -6,6 +6,8 @@ use App\Enums\VueTypeError;
 
 /**
  * ID type
+ *
+ * @author Dainis Abols <dainis@dainisabols.lv>
  */
 class VueId extends VueType
 {

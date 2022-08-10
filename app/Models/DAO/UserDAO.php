@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Database;
+namespace App\Models\DAO;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,6 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * Database User model
+ *
+ * @author Dainis Abols <dainis@dainisabols.lv>
+ */
 class UserDAO extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;

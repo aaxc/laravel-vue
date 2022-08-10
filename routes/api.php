@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('users')->controller(\App\Http\Controllers\API\UserController::class)->group(function () {
+Route::prefix('users')->controller(UserController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/blank', 'blank');
     Route::post('/add', 'add');
-    Route::delete('/delete/{id}', 'destroy');
+    Route::put('/update/{user_id}', 'update');
+    Route::delete('/delete/{user_id}', 'destroy');
 });

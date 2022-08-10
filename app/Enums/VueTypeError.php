@@ -4,6 +4,8 @@ namespace App\Enums;
 
 /**
  * VUE Type Errors
+ *
+ * @author Dainis Abols <dainis@dainisabols.lv>
  */
 enum VueTypeError
 {
@@ -12,6 +14,11 @@ enum VueTypeError
     case INVALID_EMAIL;
     case INVALID_DATE;
 
+    /**
+     * Return text values of enums
+     *
+     * @return string
+     */
     public function text(): string
     {
         return match ($this) {
