@@ -21,9 +21,9 @@ const app = new Vue({
             this.allowAdd = false;
             axios.get(myApi + 'users/blank').then(function (response) {
                 that.users.unshift(response.data);
-            }).catch(function(){
+            }).catch(function () {
                 console.log('Something went wrong!');
-            }).finally(function(){
+            }).finally(function () {
                 that.allowAdd = true;
             });
         },
@@ -33,7 +33,7 @@ const app = new Vue({
                 newUser.name = response.data.name;
                 newUser.email = response.data.email;
                 newUser.created_at = response.data.created_at;
-            }).catch(function(){
+            }).catch(function () {
                 console.log('Something went wrong!');
             });
         },
@@ -51,7 +51,7 @@ const app = new Vue({
 
             // Set rendered to true
             that.rendered = true;
-        }).catch(function(){
+        }).catch(function () {
             console.log('Something went wrong!');
         });
     },

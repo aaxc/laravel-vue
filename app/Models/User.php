@@ -22,12 +22,12 @@ class User implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
+            'id'         => $this->id,
+            'name'       => $this->name,
+            'email'      => $this->email,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'password' => $this->password,
+            'password'   => $this->password,
         ];
     }
 
@@ -38,12 +38,12 @@ class User implements \JsonSerializable
      */
     public function blank(): User
     {
-        $this->id = (new VueId(null))->setToEdit(false);
-        $this->name = (new VueFullName(null))->setToEdit(true);
-        $this->email = (new VueEmail(null))->setToEdit(true);
+        $this->id         = (new VueId(null))->setToEdit(false);
+        $this->name       = (new VueFullName(null))->setToEdit(true);
+        $this->email      = (new VueEmail(null))->setToEdit(true);
         $this->created_at = (new VueDate(new Carbon()))->setToEdit(true);
         $this->updated_at = (new VueDate(new Carbon()))->setToEdit(false);
-        $this->password = (new VuePassword(null))->setToEdit(true);
+        $this->password   = (new VuePassword(null))->setToEdit(true);
 
         return $this;
     }

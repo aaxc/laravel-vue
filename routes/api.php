@@ -17,6 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('users')->controller(\App\Http\Controllers\API\UserController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/blank', 'blank');
-//    Route::post('/add', 'add');
-    Route::any('/add', 'add');
+    Route::post('/add', 'add');
 });
