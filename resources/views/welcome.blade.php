@@ -56,7 +56,10 @@
             <tbody v-if="users">
             <tr v-for="(user, index) in users">
                 <td style="font-size: 12px; color: #ccc;">{{ index + 1 }}</td>
-                <td>{{ user.id.value }}</td>
+                <td>
+                    {{ user.id.value }}
+                    <button v-if="!user.id.value" class="btn btn-warning" @click="cancelUser(user)">x</button>
+                </td>
                 <td>
                     <span class="editable" @click="showEdit(user.name)" v-if="!user.name.toEdit">{{ user.name.value }}</span>
                     <input v-if="user.name.toEdit" type="text" class="form-control" v-model:value="user.name.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.name, user)" />

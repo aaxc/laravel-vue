@@ -97,6 +97,15 @@ const app = new Vue({
         },
 
         /**
+         * Cancel adding new user
+         *
+         * @param user
+         */
+        cancelUser: function(user) {
+            this.users = this.users.filter(v => v !== user)
+        },
+
+        /**
          * Delete user
          *
          * @param user
