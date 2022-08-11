@@ -84,7 +84,7 @@ const app = new Vue({
          *
          * @param user
          */
-        updateUser: function(user) {
+        updateUser: function (user) {
             let that = this;
 
             axios.put(myApi + 'users/update/' + user.id.value, user)
@@ -93,6 +93,31 @@ const app = new Vue({
                 })
                 .catch(function (error) {
                     that.showErrors(error);
+                });
+        },
+
+        /**
+         * Delete user
+         *
+         * @param user
+         */
+        deleteUser: function (user) {
+            let that = this;
+            document.getElementById("delete-" + user.id.value).classList.add('disabled');
+
+            axios.delete(myApi + 'users/delete/' + user.id.value)
+                .then(function (response) {
+                    that.users = that.users.filter(v => v !== user)
+                    that.hideErrors();
+                })
+                .catch(function (error) {
+                    that.showErrors(error);
+                })
+                .finally(function () {
+                    let elements = document.getElementsByClassName("delete-btn disabled");
+                    while (elements.length > 0) {
+                        elements[0].classList.remove('disabled');
+                    }
                 });
         },
 

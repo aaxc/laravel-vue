@@ -78,6 +78,8 @@
                         <input type="text" class="form-control" v-model:value="user.password.value" style="max-width: 200px;" />
                         <button class="btn btn-primary" @click="saveUser(user)">Save</button>
                     </div>
+
+                    <button :id="'delete-' + user.id.value" v-if="user.id.value" class="btn btn-danger delete-btn" @click="deleteUser(user)">Delete</button>
                 </td>
             </tr>
             </tbody>

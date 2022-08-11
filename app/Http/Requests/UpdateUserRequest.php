@@ -9,6 +9,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Unique;
 
+/**
+ * Update user request rules
+ *
+ * @author Dainis Abols <dainis@dainisabols.lv>
+ */
 class UpdateUserRequest extends FormRequest
 {
     /**
