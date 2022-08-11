@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Laravel VUE experiment</title>
 
@@ -47,8 +48,8 @@
             <thead>
             <th style="width: 20px;"></th>
             <th>ID</th>
+            <th>E-mail / Login</th>
             <th>Full Name</th>
-            <th>E-mail</th>
             <th>Create Date</th>
             <th>Updated Date</th>
             <th style="max-width: 200px;"></th>
@@ -61,12 +62,14 @@
                     <button v-if="!user.id.value" class="btn btn-warning" @click="cancelUser(user)">x</button>
                 </td>
                 <td>
-                    <span class="editable" @click="showEdit(user.name)" v-if="!user.name.toEdit">{{ user.name.value }}</span>
-                    <input v-if="user.name.toEdit" type="text" class="form-control" v-model:value="user.name.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.name, user)" />
+                    <span v-if="!user.id.value" class="editable" @click="showEdit(user.email)" v-if="!user.email.toEdit">{{ user.email.value }}</span>
+                    <span v-if="user.id.value">{{ user.email.value }}</span>
+
+                    <input v-if="user.email.toEdit" type="text" class="form-control" v-model:value="user.email.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.email, user)" />
                 </td>
                 <td>
-                    <span class="editable" @click="showEdit(user.email)" v-if="!user.email.toEdit">{{ user.email.value }}</span>
-                    <input v-if="user.email.toEdit" type="text" class="form-control" v-model:value="user.email.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.email, user)" />
+                    <span class="editable" @click="showEdit(user.name)" v-if="!user.name.toEdit">{{ user.name.value }}</span>
+                    <input v-if="user.name.toEdit" type="text" class="form-control" v-model:value="user.name.value" style="max-width: 200px;" v-on:keyup.enter="hideEdit(user.name, user)" />
                 </td>
                 <td>
                     <span class="editable" @click="showEdit(user.created_at)" v-if="!user.created_at.toEdit">{{ user.created_at.value }}</span>

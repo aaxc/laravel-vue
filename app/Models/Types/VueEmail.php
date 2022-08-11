@@ -13,6 +13,13 @@ use App\Rules\EmailRule;
 class VueEmail extends VueType
 {
     /**
+     * Set field uneditable
+     *
+     * @var bool
+     */
+    protected bool $toEdit = false;
+
+    /**
      * Validate
      *
      * @param $value

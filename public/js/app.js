@@ -103,6 +103,7 @@ const app = new Vue({
          */
         cancelUser: function(user) {
             this.users = this.users.filter(v => v !== user)
+            this.hideErrors();
         },
 
         /**
